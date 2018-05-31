@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en" data-framework="jquery">
+	<head>
+		<meta charset="utf-8">
+		<title>jQuery TodoMVC</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+		<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
+	</head>
+	<body>
+		<section class="todoapp">
+			<header class="header">
+				<h1>todos</h1>
+				<input class="new-todo" placeholder="What needs to be done?" autofocus value="" required="true">
+			</header>
+			<section class="main">
+				<input id="toggle-all" class="toggle-all" type="checkbox">
+				<label for="toggle-all">Mark all as complete</label>
+				<ul class="todo-list">
+				</ul>
+			</section>
+			<footer class="footer"></footer>
+			<script id="todo-template" type="text/x-handlebars-template">
+		</script>
+		</script>
+
+		<script id="footer-template" type="text/x-handlebars-template">
+		</script>
+		<script src="node_modules/handlebars/dist/handlebars.js"></script>
+	</body>
+</html>
+
+
+<script type="text/javascript">
+$('.new-todo').keyup(function (e) {
+ var key = e.which;
+ if(key == 13)  // the enter key code
+ 																												{
+ var val = $(".new-todo").val().trim();
+ if (val!="")
+ {
+  // localStorage.setItem("value", val);
+  //  $(this).hide()
+  // var new_value = localStorage.getItem("value");
+
+  $(".todo-list").append('<li>'+val+'<span class="close">x</span> <input type="checkbox"  class="chck"></li><br/>')
+   $(".new-todo").val("");
+   $(".footer").html(+$("ul li").length);
+  }
+  else
+  {
+  	alert("please type value before enter ");
+  }
+}
+});
+
+   $(".todo-list").on('change', '.chck',completeItem);
+   $(".todo-list").on('click', '.close',destroy);
+
+	function completeItem()
+	{
+	 if($(this).is(':checked'))
+	 {
+		$(this).parent().addClass('done')
+		// $(this).parent().remove('li')
+
+	 }
+	 else
+	 {
+	 $(this).parent().removeClass('done')
+	 }
+    };
+
+
+function destroy()
+{
+ $(this).parent().remove('li')
+ $(".footer").html(+$("ul li").length);
+};
+
+</script>
+
+
+<style>
+
+.todo-list li {
+ margin-left: 5px;
+ }
+
+.toggle-all {
+    text-align: center;
+    border: none;
+}
+
+.close
+{
+ float: right;
+ color: red;	
+}
+
+.chck
+{
+	float:left;
+}
+
+.done
+{
+ text-decoration: line-through;
+ opacity: 0.5;
+ color:green;
+}
+
+</style>
+
+
